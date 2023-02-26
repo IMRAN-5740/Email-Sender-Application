@@ -7,6 +7,7 @@
         public List<string> BCc { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }    
+        public IFormFile File { get; set; }
 
     }
 }

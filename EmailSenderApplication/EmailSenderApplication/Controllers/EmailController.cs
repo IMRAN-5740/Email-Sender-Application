@@ -29,8 +29,11 @@ namespace EmailSenderApplication.Controllers
                 {
                     message = "Email has been Send Successfully";
                 }
-                ViewBag.Message = message;  
-                return View();
+                
+                    ViewBag.Message = message;
+                    return View();
+                
+             
             }
             catch (Exception e)
             {
@@ -38,6 +41,7 @@ namespace EmailSenderApplication.Controllers
                 throw;
 
             }
+        
           
         }
 
@@ -45,6 +49,10 @@ namespace EmailSenderApplication.Controllers
         {
             List<string> validMails = new List<string>();
             Email email = new Email();
+            if(mails == null)
+            {
+                return validMails;
+            }
             if (mails.Any())
             {
                 foreach (var item in mails)

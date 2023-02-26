@@ -12,7 +12,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Send">
+        <form asp-action="Send" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="To" class="control-label"></label>
@@ -40,6 +40,11 @@
                 <span asp-validation-for="Body" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="File" class="control-label"></label>
+                <input type="file" asp-for="File" class="form-control" />
+                <span asp-validation-for="File" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Send" class="btn btn-primary" />
             </div>
         </form>
@@ -65,5 +70,5 @@
         });
     </script>
         
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
