@@ -1,6 +1,7 @@
 ﻿using EmailSenderApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using QuickMailer;
+using System.Net.Mail;
 
 namespace EmailSenderApplication.Controllers
 {
@@ -23,11 +24,19 @@ namespace EmailSenderApplication.Controllers
                 toMails = GetValidMails(anEmail.To);
                 ccMails = GetValidMails(anEmail.Cc);
                 bCcMails = GetValidMails(anEmail.BCc);
-                bool isSend=email.SendEmail(toMails, Credential.Email, Credential.Password,anEmail.Subject, anEmail.Body,ccMails,bCcMails);
-                
+
+                List<Attachment> attachments = new List<Attachment>();
+                if (anEmail.File != null)
+                {
+                    Attachment attachment = new Attachment(anEmail.File.OpenReadStream(), anEmail.File.FileName);
+                    attachments.Add(attachment);
+                }
+                bool isSend=email.SendEmail(toMails, Credential.Email, Credential.Password,anEmail.Subject, anEmail.Body,ccMails,bCcMails,attachments);
+  
                 if(isSend)
                 {
                     message = "Email has been Send Successfully";
+                    ModelState.Clear();
                 }
                 
                     ViewBag.Message = message;
