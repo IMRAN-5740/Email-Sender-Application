@@ -23,7 +23,7 @@ namespace EmailSenderApplication.Controllers
                 toMails = GetValidMails(anEmail.To);
                 ccMails = GetValidMails(anEmail.Cc);
                 bCcMails = GetValidMails(anEmail.BCc);
-                bool isSend=email.SendEmail(toMails, Credential.Email, Credential.Password,anEmail.Subject, anEmail.Body);
+                bool isSend=email.SendEmail(toMails, Credential.Email, Credential.Password,anEmail.Subject, anEmail.Body,ccMails,bCcMails);
                 
                 if(isSend)
                 {
