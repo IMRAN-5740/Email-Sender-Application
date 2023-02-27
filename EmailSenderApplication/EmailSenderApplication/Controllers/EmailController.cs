@@ -12,34 +12,55 @@ namespace EmailSenderApplication.Controllers
             return View();
         }
         [HttpPost]
+        [RequestSizeLimit(500 * 1024 * 1024)]
+        [RequestFormLimits(MultipartBodyLengthLimit = 500 * 1024 * 1024)]
         public IActionResult Send(EmailViewModel anEmail)
         {
             try
             {
+                string message = "Email Send Failed";
+                string msg = "";
                 List<string> toMails = new List<string>();
                 List<string> ccMails = new List<string>();
                 List<string> bCcMails = new List<string>();
-                string message = "Email Send Failed";
+                List<Attachment> attachments = new List<Attachment>();
                 Email email = new Email();
                 toMails = GetValidMails(anEmail.To);
                 ccMails = GetValidMails(anEmail.Cc);
                 bCcMails = GetValidMails(anEmail.BCc);
 
-                List<Attachment> attachments = new List<Attachment>();
-                if (anEmail.File != null)
+              
+                if (anEmail.To == null && anEmail.Cc == null && anEmail.BCc == null)
                 {
-                    Attachment attachment = new Attachment(anEmail.File.OpenReadStream(), anEmail.File.FileName);
-                    attachments.Add(attachment);
+                    msg = "Please Select at least one recipient";
                 }
-                bool isSend=email.SendEmail(toMails, Credential.Email, Credential.Password,anEmail.Subject, anEmail.Body,ccMails,bCcMails,attachments);
-  
-                if(isSend)
+                else
                 {
-                    message = "Email has been Send Successfully";
-                    ModelState.Clear();
+
+                    
+                    if (anEmail.Files != null)
+                    {
+                        var size = anEmail.Files;
+                        foreach (var file in anEmail.Files)
+                        {
+                            Attachment attachment = new Attachment(file.OpenReadStream(), file.FileName);
+                            attachments.Add(attachment);
+
+                        }
+
+                    }
+                    bool isSend = email.SendEmail(toMails, Credential.Email, Credential.Password, anEmail.Subject, anEmail.Body, ccMails, bCcMails, attachments);
+
+                    if (isSend)
+                    {
+                        message = "Email has been Send Successfully";
+                        ModelState.Clear();
+                    }
                 }
                 
-                    ViewBag.Message = message;
+                
+                ViewBag.Message = message;
+                ViewBag.Msg = msg;
                     return View();
                 
              
