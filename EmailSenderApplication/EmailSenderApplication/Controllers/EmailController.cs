@@ -55,11 +55,12 @@ namespace EmailSenderApplication.Controllers
                         ModelState.Clear();
                     }
                 }
-                
-                
+
+
                 ViewBag.Message = message;
                 ViewBag.Msg = msg;
-                    return View();
+                
+                return View();
                 
              
             }
