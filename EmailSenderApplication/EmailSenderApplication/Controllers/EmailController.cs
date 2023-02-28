@@ -12,9 +12,7 @@ namespace EmailSenderApplication.Controllers
             return View();
         }
         [HttpPost]
-        [RequestSizeLimit(500 * 1024 * 1024)]
-        [RequestFormLimits(MultipartBodyLengthLimit = 500 * 1024 * 1024)]
-        public IActionResult Send(EmailViewModel anEmail)
+        public IActionResult Send(EmalModel anEmail)
         {
             try
             {
@@ -75,7 +73,7 @@ namespace EmailSenderApplication.Controllers
           
         }
 
-        public List<string> GetValidMails(List<string> mails)
+        private  List<string> GetValidMails(List<string> mails)
         {
             List<string> validMails = new List<string>();
             Email email = new Email();

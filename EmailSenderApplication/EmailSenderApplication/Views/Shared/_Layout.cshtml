@@ -8,8 +8,13 @@
    
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EmailSenderApplication.styles.css" asp-append-version="true" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    
+
+    <!-- include select 2 css-->
+    <link href="~/lib/select-2/select2.min.css" rel="stylesheet" />
+
+    <!-- include summernote css/js-->
+    <link href="~/lib/summernote-0.8.18-dist/summernote-lite.css" rel="stylesheet" />
+    <link href="~/lib/summernote-0.8.18-dist/summernote-lite.min.css" rel="stylesheet" />
 
     
 </head>
@@ -53,11 +58,12 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- include select-2 js-->
+    <script src="~/lib/select-2/select2.min.js"></script>
+    <!-- include summernote js-->
+    <script src="~/lib/summernote-0.8.18-dist/summernote-lite.js"></script>
+    <script src="~/lib/summernote-0.8.18-dist/summernote-lite.min.js"></script>
    
-
-  
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

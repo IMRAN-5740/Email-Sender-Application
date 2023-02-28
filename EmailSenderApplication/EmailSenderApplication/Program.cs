@@ -4,7 +4,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.Configure<FormOptions>(options =>
+{
+    // Set the limit to 25 MB
+    options.MultipartBodyLengthLimit = 25600;
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
